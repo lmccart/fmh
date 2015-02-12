@@ -11,6 +11,7 @@
 @interface ViewController ()
 
 @property (retain, nonatomic) IBOutlet UIImageView *monitorStatusIcon;
+@property (retain, nonatomic) IBOutlet UILabel *hrLabel;
 
 @end
 
@@ -27,12 +28,16 @@
 }
 
 
-- (void)updateMonitorStatus:(float)status {
+- (void)updateMonitorStatus:(BOOL)status {
     [self.monitorStatusIcon setHidden:!status];
 }
 
 - (void)updateMonitorBatteryLevel:(float)level {
     [self.monitorStatusIcon setAlpha:level];
+}
+
+- (void)updateHeartRate:(int)hr {
+    [self.hrLabel setText:[NSString stringWithFormat:@"%d", hr]];
 }
 
 

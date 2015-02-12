@@ -10,8 +10,9 @@
 
 @interface ViewController : UIViewController
 
-- (void)updateMonitorStatus:(float)status;
+- (void)updateMonitorStatus:(BOOL)status;
 - (void)updateMonitorBatteryLevel:(float)level;
+- (void)updateHeartRate:(int)hr;
 
 @end
 

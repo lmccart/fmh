@@ -24,6 +24,7 @@
 @property BOOL alertShowing;
 - (void) triggerNotification:(NSString *)type;
 
+- (void)sendHeartRate:(int)hr;
 
 @end
 

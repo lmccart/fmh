@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		652D7CFA1A8C6CD400BE1051 /* heart-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 652D7CF91A8C6CD400BE1051 /* heart-white@2x.png */; };
 		659C84961A8C413F003355C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 659C84951A8C413F003355C5 /* main.m */; };
 		659C84991A8C413F003355C5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 659C84981A8C413F003355C5 /* AppDelegate.m */; };
 		659C849C1A8C413F003355C5 /* fmh.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 659C849A1A8C413F003355C5 /* fmh.xcdatamodeld */; };
@@ -71,6 +72,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		652D7CF91A8C6CD400BE1051 /* heart-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart-white@2x.png"; path = "Images/UI/heart-white@2x.png"; sourceTree = "<group>"; };
 		659C84901A8C413F003355C5 /* fmh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fmh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		659C84941A8C413F003355C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		659C84951A8C413F003355C5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 		659C84DB1A8C4CA0003355C5 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				652D7CF91A8C6CD400BE1051 /* heart-white@2x.png */,
 				659C84DC1A8C4CA0003355C5 /* credentials.txt */,
 				659C84DD1A8C4CA0003355C5 /* Fonts */,
 				659C84E01A8C4CA0003355C5 /* Images */,
@@ -439,6 +442,7 @@
 				659C85031A8C4CA0003355C5 /* credentials.txt in Resources */,
 				659C850D1A8C4CA0003355C5 /* Default.png in Resources */,
 				659C85141A8C4CA0003355C5 /* rank_sel@2x.png in Resources */,
+				652D7CFA1A8C6CD400BE1051 /* heart-white@2x.png in Resources */,
 				659C851C1A8C4CA0003355C5 /* left-small@2x.png in Resources */,
 				659C851D1A8C4CA0003355C5 /* left@2x.png in Resources */,
 				659C851A1A8C4CA0003355C5 /* heart@2x.png in Resources */,
@@ -609,8 +613,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = fmh/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -620,8 +626,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = fmh/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -250,12 +250,17 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
 			uint16_t HeartRateMeasurementValue;
 			[data getBytes:&HeartRateMeasurementValue range:NSMakeRange(readOffset, sizeof(HeartRateMeasurementValue))];
 			readOffset += sizeof(HeartRateMeasurementValue);
-            //			NSLog(@"Heart rate is %hu", HeartRateMeasurementValue);
+            //NSLog(@"0Heart rate is %hu", HeartRateMeasurementValue);
 		} else {
+            // This one for zephyr!
 			uint8_t HeartRateMeasurementValue;
 			[data getBytes:&HeartRateMeasurementValue range:NSMakeRange(readOffset, sizeof(HeartRateMeasurementValue))];
 			readOffset += sizeof(HeartRateMeasurementValue);
-            //			NSLog(@"Heart rate is %hhu", HeartRateMeasurementValue);
+            [self.viewController updateHeartRate:HeartRateMeasurementValue];
+            
+            AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+            [appDelegate sendHeartRate:HeartRateMeasurementValue];
+            //NSLog(@"1Heart rate is %hhu", HeartRateMeasurementValue);
 		}
         
         if(EnergyExpendedStatus == 1) {
@@ -267,9 +272,9 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
         
 		if(SensorContactStatus == 2) {
 			NSLog(@"Sensor contact is not detected");
-            [_viewController updateMonitorStatus:0.5];
+            [_viewController updateMonitorStatus:false];
         } else {
-            [_viewController updateMonitorStatus:1];
+            [_viewController updateMonitorStatus:true];
             
 //            if(SensorContactStatus == 3) {
 //                NSLog(@"Sensor contact is detected");
@@ -301,7 +306,7 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
         char batteryValue;
         [characteristic.value getBytes:&batteryValue length:1];
         float n = (float)batteryValue;
-        //NSLog(@"battery level: %f", n);
+        NSLog(@"battery level: %f", n);
         [self.viewController updateMonitorBatteryLevel:n/100.0];
         
         // notif if needed
@@ -347,8 +352,8 @@ didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic
 didDisconnectPeripheral:(CBPeripheral *)aPeripheral 
                   error:(NSError *)error
 {
-    //NSLog(@"Disconnected peripheral %@", aPeripheral.name);
-    [_viewController updateMonitorStatus:0];
+    NSLog(@"Disconnected peripheral %@", aPeripheral.name);
+    [_viewController updateMonitorStatus:false];
     self.sensorConnected = NO;
     
     // trigger alert

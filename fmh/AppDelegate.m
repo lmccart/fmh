@@ -11,7 +11,7 @@
 #import "HeartRateAnalyzer.h"
 
 @interface AppDelegate ()
-
+@property NSString *serverUrl;
 @end
 
 @implementation AppDelegate
@@ -19,6 +19,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.serverUrl = @"https://followmyheart.herokuapp.com/";
     
     ViewController *controller = (ViewController *)self.window.rootViewController;
     [[HeartRateMonitor data] setViewController:controller];
@@ -198,6 +200,29 @@
     }
     self.alertShowing = NO;
 }
+
+
+// server
+- (void)sendHeartRate:(int)hr {
+    NSString *urlString = [NSString stringWithFormat:@"%@update_hr?hr=%d", self.serverUrl, hr];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:url];
+    [request setHTTPMethod:@"GET"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               if (error) {
+                                   NSLog(@"error: %@", error);
+                               } else {
+                                   NSLog(@"sent successfully");
+                               }
+                           }];
+}
+
 
 
 @end

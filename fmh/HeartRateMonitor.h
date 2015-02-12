@@ -16,8 +16,8 @@
 
 +(id)data;
 -(id)init;
--(void) startScan;
--(void) stopScan;
+-(void)startScan;
+-(void)stopScan;
 -(void)setViewController:(ViewController *)viewController;
 -(void)scheduleCheckSensor;
 -(void)checkSensor;
