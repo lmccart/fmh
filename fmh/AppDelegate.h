@@ -21,7 +21,7 @@
 - (NSURL *)applicationDocumentsDirectory;
 
 
-@property BOOL alertShowing;
+@property NSDate *lastAlertTime;
 - (void) triggerNotification:(NSString *)type;
 
 - (void)sendHeartRate:(int)hr;

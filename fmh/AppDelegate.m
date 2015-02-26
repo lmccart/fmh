@@ -22,6 +22,10 @@
     
     self.serverUrl = @"https://followmyheart.herokuapp.com/";
     
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    }
+    
     ViewController *controller = (ViewController *)self.window.rootViewController;
     [[HeartRateMonitor data] setViewController:controller];
     
@@ -135,23 +139,45 @@
 
 - (void)triggerNotification:(NSString *)type {
     
-    NSString *msg;
-    if ([type isEqualToString:@"hr_monitor"]) {
-        msg = @"Heart rate monitor is not connected.";
-    } else if ([type isEqualToString:@"hr_battery"]) {
-        msg = @"Heart rate monitor battery is low.";
+    NSDate *date = [NSDate date];
+    
+    if (!self.lastAlertTime || [date timeIntervalSinceDate:self.lastAlertTime] > 30) { // every 5 mins
+        self.lastAlertTime = date;
+        
+        BOOL exists = false;
+        NSLog(@"%@", [[UIApplication sharedApplication] scheduledLocalNotifications]);
+        for(UILocalNotification *n in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
+            NSString *t = [n.userInfo objectForKey:@"type"];
+            if([t isEqualToString:type]) {
+                NSLog(@"canceling");
+                exists = true;
+                [[UIApplication sharedApplication] cancelLocalNotification:n];
+            }
+        }
+        
+        if (!exists) {
+            
+            NSString *msg;
+            if ([type isEqualToString:@"hr_monitor"]) {
+                msg = @"Heart rate monitor is not connected.";
+            } else if ([type isEqualToString:@"hr_contact"]) {
+                msg = @"Heart rate monitor skin contact lost.";
+            } else if ([type isEqualToString:@"hr_battery"]) {
+                msg = @"Heart rate monitor battery is low.";
+            }
+            UILocalNotification * notification = [[UILocalNotification alloc] init];
+            notification.alertBody = msg;
+            notification.alertAction = @"Report";
+            notification.hasAction = YES;
+            notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+            
+            NSDictionary *infoDict = [NSDictionary dictionaryWithObject:type forKey:@"type"];
+            notification.userInfo = infoDict;
+            
+            [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        }
+
     }
-    UILocalNotification * notification = [[UILocalNotification alloc] init];
-    notification.alertBody = msg;
-    notification.alertAction = @"Report";
-    notification.hasAction = YES;
-    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
-    
-    NSDictionary *infoDict = [NSDictionary dictionaryWithObject:type forKey:@"type"];
-    notification.userInfo = infoDict;
-    
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    NSLog(@"sending notification");
 }
 
 // fired in all when app notif received while app is foregrounded
@@ -160,17 +186,16 @@
     
     NSString *type = [notification.userInfo objectForKey:@"type"];
     
-    if ([type isEqualToString:@"hr_monitor"]) {
+    if ([type isEqualToString:@"hr_monitor"] || [type isEqualToString:@"hr_contact"]) {
         if (application.applicationState == UIApplicationStateInactive) {
             [[HeartRateMonitor data] setSensorWarned:YES];
-        } else if (application.applicationState == UIApplicationStateActive && !self.alertShowing) {
+        } else if (application.applicationState == UIApplicationStateActive) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hey!"
                                                             message:[notification alertBody]
                                                            delegate:self
                                                   cancelButtonTitle:@"Ok"
                                                   otherButtonTitles:nil];
             [alert show];
-            self.alertShowing = YES;
         }
     } else if ([type isEqualToString:@"hr_battery"]) {
         if (application.applicationState == UIApplicationStateActive) {
@@ -182,6 +207,8 @@
             [alert show];
         }
     }
+
+    [[UIApplication sharedApplication] cancelLocalNotification:notification];
 }
 
 // fired in iOS8 when app opened from touch on notif
@@ -190,6 +217,7 @@
     if ([type isEqualToString:@"hr_monitor"]) {
         [[HeartRateMonitor data] setSensorWarned:YES];
     }
+    [[UIApplication sharedApplication] cancelLocalNotification:notification];
     completionHandler();
 }
 
@@ -198,7 +226,6 @@
     if (buttonIndex == [alertView firstOtherButtonIndex]) {
         //
     }
-    self.alertShowing = NO;
 }
 
 

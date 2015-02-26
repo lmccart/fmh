@@ -267,12 +267,17 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
             uint16_t EnergyExpended;
             [data getBytes:&EnergyExpended range:NSMakeRange(readOffset, sizeof(EnergyExpended))];
             readOffset += sizeof(EnergyExpended);
-            NSLog(@"Energy expended is %hu", EnergyExpended);
+            //NSLog(@"Energy expended is %hu", EnergyExpended);
         }
         
 		if(SensorContactStatus == 2) {
 			NSLog(@"Sensor contact is not detected");
             [_viewController updateMonitorStatus:false];
+            
+            AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+            [appDelegate triggerNotification:@"hr_contact"];
+            self.sensorWarned = YES;
+            
         } else {
             [_viewController updateMonitorStatus:true];
             
@@ -282,24 +287,24 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
 //                NSLog(@"Sensor contact is not supported");
 //            }
             
-            if(RRInterval) {
-                //			NSLog(@"One or more RR-Interval values are present.");
-                uint8_t entry = 0;
-                while(readOffset < data.length) {
-                    uint16_t rr;
-                    [data getBytes:&rr range:NSMakeRange(readOffset, sizeof(rr))];
-                    //				NSLog(@"RR-Interval %hhu: %hu", entry, rr);
-                    
-                    // time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
-                    // NSString* cur = [NSString stringWithFormat:@"%ld\t%hu", unixTime, rr];
-                    // NSLog(@"%@", cur);
-                    [[HeartRateAnalyzer data] addRR:[[NSNumber numberWithUnsignedShort:rr] integerValue] withTime:time];
-                    //[self writeToLogFile:cur];
-                    
-                    entry++;
-                    readOffset += sizeof(rr);
-                }
-            }
+//            if(RRInterval) {
+//                //			NSLog(@"One or more RR-Interval values are present.");
+//                uint8_t entry = 0;
+//                while(readOffset < data.length) {
+//                    uint16_t rr;
+//                    [data getBytes:&rr range:NSMakeRange(readOffset, sizeof(rr))];
+//                    //				NSLog(@"RR-Interval %hhu: %hu", entry, rr);
+//                    
+//                    // time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
+//                    // NSString* cur = [NSString stringWithFormat:@"%ld\t%hu", unixTime, rr];
+//                    // NSLog(@"%@", cur);
+//                    [[HeartRateAnalyzer data] addRR:[[NSNumber numberWithUnsignedShort:rr] integerValue] withTime:time];
+//                    //[self writeToLogFile:cur];
+//                    
+//                    entry++;
+//                    readOffset += sizeof(rr);
+//                }
+//            }
         }
     } else if([[characteristic.UUID data] isEqualToData:[batteryTarget data]]) {
 
