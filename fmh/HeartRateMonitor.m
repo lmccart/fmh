@@ -7,7 +7,6 @@
 //
 
 #import "HeartRateMonitor.h"
-#import "HeartRateAnalyzer.h"
 #import "AppDelegate.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 
@@ -224,7 +223,7 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
 	if (error) {
 		return;
     }
-    NSDate* time = [NSDate date];
+    //NSDate* time = [NSDate date];
     //NSLog(@"didUpdateValueForCharacteristic %@ %@", characteristic, characteristic.UUID);
     CBUUID* hrTarget = [CBUUID UUIDWithString:@"2a37"]; // heart rate measurement characteristic
     CBUUID* batteryTarget = [CBUUID UUIDWithString:@"2a19"]; // battery characteristic
@@ -242,7 +241,7 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
 		uint8_t HeartRateValueFormat = (flags & (1 << 0)) >> 0;
 		uint8_t SensorContactStatus = (flags & (3 << 1)) >> 1;
 		uint8_t EnergyExpendedStatus = (flags & (1 << 3)) >> 3;
-		uint8_t RRInterval = (flags & (1 << 4)) >> 4;
+		//uint8_t RRInterval = (flags & (1 << 4)) >> 4;
         
 //        NSLog(@"Heart Rate %@ flags %hhu, %hhu, %hhu, %hhu for %@", characteristic.value, HeartRateValueFormat, SensorContactStatus, EnergyExpendedStatus, RRInterval, characteristic.UUID);
         

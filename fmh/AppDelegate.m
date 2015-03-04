@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "HeartRateMonitor.h"
-#import "HeartRateAnalyzer.h"
 
 @interface AppDelegate ()
 @property NSString *serverUrl;
