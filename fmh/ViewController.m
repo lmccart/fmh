@@ -43,6 +43,8 @@
 
 - (void)updateMonitorStatus:(BOOL)status {
     [self.monitorStatusIcon setHidden:!status];
+    [self.hrBattery setHidden:!status];
+    NSLog(@"show");
 }
 
 - (void)updateMonitorBatteryLevel:(float)level {

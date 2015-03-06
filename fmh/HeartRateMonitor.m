@@ -240,7 +240,7 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
         
 		uint8_t HeartRateValueFormat = (flags & (1 << 0)) >> 0;
 		uint8_t SensorContactStatus = (flags & (3 << 1)) >> 1;
-		uint8_t EnergyExpendedStatus = (flags & (1 << 3)) >> 3;
+		//uint8_t EnergyExpendedStatus = (flags & (1 << 3)) >> 3;
 		//uint8_t RRInterval = (flags & (1 << 4)) >> 4;
         
 //        NSLog(@"Heart Rate %@ flags %hhu, %hhu, %hhu, %hhu for %@", characteristic.value, HeartRateValueFormat, SensorContactStatus, EnergyExpendedStatus, RRInterval, characteristic.UUID);
@@ -248,13 +248,13 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
 		if(HeartRateValueFormat) {
 			uint16_t HeartRateMeasurementValue;
 			[data getBytes:&HeartRateMeasurementValue range:NSMakeRange(readOffset, sizeof(HeartRateMeasurementValue))];
-			readOffset += sizeof(HeartRateMeasurementValue);
+			//readOffset += sizeof(HeartRateMeasurementValue);
             //NSLog(@"0Heart rate is %hu", HeartRateMeasurementValue);
 		} else {
             // This one for zephyr!
 			uint8_t HeartRateMeasurementValue;
 			[data getBytes:&HeartRateMeasurementValue range:NSMakeRange(readOffset, sizeof(HeartRateMeasurementValue))];
-			readOffset += sizeof(HeartRateMeasurementValue);
+			//readOffset += sizeof(HeartRateMeasurementValue);
             [self.viewController updateHeartRate:HeartRateMeasurementValue];
             
             AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
@@ -262,12 +262,12 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
             //NSLog(@"1Heart rate is %hhu", HeartRateMeasurementValue);
 		}
         
-        if(EnergyExpendedStatus == 1) {
-            uint16_t EnergyExpended;
-            [data getBytes:&EnergyExpended range:NSMakeRange(readOffset, sizeof(EnergyExpended))];
-            readOffset += sizeof(EnergyExpended);
-            //NSLog(@"Energy expended is %hu", EnergyExpended);
-        }
+//        if(EnergyExpendedStatus == 1) {
+//            uint16_t EnergyExpended;
+//            [data getBytes:&EnergyExpended range:NSMakeRange(readOffset, sizeof(EnergyExpended))];
+//            readOffset += sizeof(EnergyExpended);
+//            //NSLog(@"Energy expended is %hu", EnergyExpended);
+//        }
         
 		if(SensorContactStatus == 2) {
 			NSLog(@"Sensor contact is not detected");

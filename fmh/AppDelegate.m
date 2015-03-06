@@ -244,7 +244,7 @@
                                if (error) {
                                    NSLog(@"error: %@", error);
                                } else {
-                                   NSLog(@"sent successfully");
+                                   //NSLog(@"sent successfully");
                                }
                            }];
 }

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,14 +11,25 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="LaunchScreen.png" translatesAutoresizingMaskIntoConstraints="NO" id="hFg-xd-ktc">
-                    <rect key="frame" x="-8" y="-8" width="375" height="667"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreen.png" translatesAutoresizingMaskIntoConstraints="NO" id="xu0-kL-PLo">
+                    <rect key="frame" x="8" y="14" width="359" height="638.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="xu0-kL-PLo" secondAttribute="height" multiplier="375:667" id="eDX-QA-y2X"/>
+                    </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="xu0-kL-PLo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="9yd-f2-lGs"/>
+                <constraint firstAttribute="bottom" secondItem="xu0-kL-PLo" secondAttribute="bottom" constant="14.5" id="EBA-LC-evS"/>
+                <constraint firstItem="xu0-kL-PLo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="aHX-ic-Imh"/>
+                <constraint firstAttribute="trailing" secondItem="xu0-kL-PLo" secondAttribute="trailing" constant="8" id="koU-jC-tWm"/>
+                <constraint firstAttribute="centerX" secondItem="xu0-kL-PLo" secondAttribute="centerX" constant="0.25" id="qmL-TM-dsR"/>
+                <constraint firstAttribute="centerY" secondItem="xu0-kL-PLo" secondAttribute="centerY" constant="-0.5" id="xDy-c5-r89"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-            <point key="canvasLocation" x="548" y="455"/>
+            <point key="canvasLocation" x="547.5" y="448.75"/>
         </view>
     </objects>
     <resources>
