@@ -19,8 +19,10 @@
 *.xcodeproj/xcuserdata/*.xcuserdatad
 *.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad
 
-#private
-pplkpr/assets/credentials.txt
+# Private
+
+assets/env.txt
+assets/mio-8.model
 
 #emacs fragments
 *~
@@ -28,4 +30,3 @@ pplkpr/assets/credentials.txt
 # Processing data foler
 data/
 HRV/
-assets/

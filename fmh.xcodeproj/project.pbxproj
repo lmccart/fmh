@@ -18,9 +18,9 @@
 		659C84B31A8C413F003355C5 /* fmhTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 659C84B21A8C413F003355C5 /* fmhTests.m */; };
 		659C84C21A8C4178003355C5 /* HeartRateMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 659C84C01A8C4178003355C5 /* HeartRateMonitor.m */; };
 		659C84C51A8C434D003355C5 /* DayLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 659C84C41A8C434D003355C5 /* DayLog.m */; };
-		659C85031A8C4CA0003355C5 /* credentials.txt in Resources */ = {isa = PBXBuildFile; fileRef = 659C84DC1A8C4CA0003355C5 /* credentials.txt */; };
 		659C85231A8C4CA0003355C5 /* mio-8.model in Resources */ = {isa = PBXBuildFile; fileRef = 659C85021A8C4CA0003355C5 /* mio-8.model */; };
 		65A5C9F31AA7C8AD00F3169C /* LaunchScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 65A5C9F21AA7C8AD00F3169C /* LaunchScreen.png */; };
+		65A98A171AAC9873003212A0 /* env.txt in Resources */ = {isa = PBXBuildFile; fileRef = 65A98A161AAC9873003212A0 /* env.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,9 +53,9 @@
 		659C84C01A8C4178003355C5 /* HeartRateMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeartRateMonitor.m; sourceTree = "<group>"; };
 		659C84C31A8C434D003355C5 /* DayLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayLog.h; sourceTree = "<group>"; };
 		659C84C41A8C434D003355C5 /* DayLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayLog.m; sourceTree = "<group>"; };
-		659C84DC1A8C4CA0003355C5 /* credentials.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = credentials.txt; sourceTree = "<group>"; };
 		659C85021A8C4CA0003355C5 /* mio-8.model */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mio-8.model"; sourceTree = "<group>"; };
 		65A5C9F21AA7C8AD00F3169C /* LaunchScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LaunchScreen.png; path = ../../LaunchScreen.png; sourceTree = "<group>"; };
+		65A98A161AAC9873003212A0 /* env.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = env.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,9 +144,9 @@
 		659C84DB1A8C4CA0003355C5 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				65A98A161AAC9873003212A0 /* env.txt */,
 				65A5C9F21AA7C8AD00F3169C /* LaunchScreen.png */,
 				652D7CF91A8C6CD400BE1051 /* heart-white@2x.png */,
-				659C84DC1A8C4CA0003355C5 /* credentials.txt */,
 				659C85021A8C4CA0003355C5 /* mio-8.model */,
 			);
 			path = assets;
@@ -237,7 +237,7 @@
 				65A5C9F31AA7C8AD00F3169C /* LaunchScreen.png in Resources */,
 				659C84A71A8C413F003355C5 /* LaunchScreen.xib in Resources */,
 				659C84A41A8C413F003355C5 /* Images.xcassets in Resources */,
-				659C85031A8C4CA0003355C5 /* credentials.txt in Resources */,
+				65A98A171AAC9873003212A0 /* env.txt in Resources */,
 				652D7CFA1A8C6CD400BE1051 /* heart-white@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

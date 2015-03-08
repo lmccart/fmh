@@ -11,6 +11,7 @@
 
 @interface AppDelegate ()
 @property NSString *serverUrl;
+@property NSString *serverPass;
 @end
 
 @implementation AppDelegate
@@ -20,6 +21,16 @@
     // Override point for customization after application launch.
     
     self.serverUrl = @"https://followmyheart.herokuapp.com/";
+    
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"env"
+                                                     ofType:@"txt"];
+    NSString* content = [NSString stringWithContentsOfFile:path
+                                                  encoding:NSUTF8StringEncoding
+                                                     error:NULL];
+    
+    self.serverPass = content;
+    
+    
     
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
         [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
@@ -140,11 +151,10 @@
     
     NSDate *date = [NSDate date];
     
-    if (!self.lastAlertTime || [date timeIntervalSinceDate:self.lastAlertTime] > 30) { // every 5 mins
+    if (!self.lastAlertTime || [date timeIntervalSinceDate:self.lastAlertTime] > 300) { // every 5 mins
         self.lastAlertTime = date;
         
         BOOL exists = false;
-        NSLog(@"%@", [[UIApplication sharedApplication] scheduledLocalNotifications]);
         for(UILocalNotification *n in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
             NSString *t = [n.userInfo objectForKey:@"type"];
             if([t isEqualToString:type]) {
@@ -230,7 +240,10 @@
 
 // server
 - (void)sendHeartRate:(int)hr {
-    NSString *urlString = [NSString stringWithFormat:@"%@update_hr?hr=%d", self.serverUrl, hr];
+    NSString *urlString = [NSString stringWithFormat:@"%@update_hr?pass=%@&hr=%d",
+                           self.serverUrl,
+                           self.serverPass,
+                           hr];
     NSURL *url = [NSURL URLWithString:urlString];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
